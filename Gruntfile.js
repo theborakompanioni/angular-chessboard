@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         // Lint & run unit tests in Karma
         // Just running `$ grunt watch` will only lint your code; to run tests
         // on watch, use `$ grunt watch:karma` to start a Karma server first
-        files: ['src/chessboard.js', 'test/spec/chessboard.spec.js'],
+        files: ['src/angular-chessboard.js', 'test/spec/angular-chessboard.spec.js'],
         tasks: ['jshint', 'karma:unit:run']
       }
     },
@@ -34,17 +34,12 @@ module.exports = function (grunt) {
     },
     jshint: {
       all:[
-        'gruntFile.js',
+        'Gruntfile.js',
         'src/**/*.js',
         //'test/**/*.spec.js'
       ],
       options: {
         jshintrc: '.jshintrc'
-      }
-    },
-    changelog: {
-      options: {
-        dest: 'CHANGELOG.md'
       }
     },
     copy: {
@@ -63,8 +58,8 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/chessboard.js': [
-            'dist/chessboard.js'
+          'dist/angular-chessboard.min.js': [
+            'dist/angular-chessboard.js'
           ]
         }
       }
@@ -74,7 +69,7 @@ module.exports = function (grunt) {
   // Register tasks
   grunt.registerTask('default', ['jshint', 'karma:unit']);
   grunt.registerTask('watch', ['jshint', 'karma:watch']);
-  grunt.registerTask('dist', ['jshint', 'karma:unit', 'copy', 'uglify'])
+  grunt.registerTask('dist', ['jshint', 'karma:unit', 'copy', 'uglify']);
 
   grunt.initConfig(initConfig);
 };
