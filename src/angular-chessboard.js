@@ -195,6 +195,32 @@
     };
     
     return directive;
+  }])
+  
+  .directive('nywtonChessboardAutoresize', ['$window','$timeout', function($window, $timeout) {
+    var directive = {
+      restrict: 'A',
+      priority: 1,
+      require: 'nywtonChessboard',
+      link: function link($scope, $element, $attrs, $ctrl) {
+        var resizeBoard = function resizeBoardF() {
+          if(angular.isDefined($ctrl.board())) {
+            $ctrl.board().resize();
+          }
+        };
+        var resizeTimeoutPromise;
+        // TODO: find better solution than using jquery for resize events o_0
+        $window.$($window).resize(function onWindowSizeChangeResizeBoardF() {
+          $timeout.cancel(resizeTimeoutPromise);
+          resizeTimeoutPromise = $timeout(resizeBoard, 200);
+        });
+        $scope.$on('$destroy', function onDestroyF() {
+          $timeout.cancel(resizeTimeoutPromise);
+        });
+      },
+    };
+    
+    return directive;
   }]);
 
 })();
