@@ -14,6 +14,9 @@
     snapbackSpeed: 50,
     snapSpeed: 25,
     trashSpeed: 100,
+    sparePieces:false,
+    showErrors: false,
+    pieceTheme: undefined, // defaults to 'img/chesspieces/wikipedia/{piece}.png'
     onDragStart: angular.noop,
     onDrop: angular.noop,
     onSnapEnd: angular.noop,
@@ -38,6 +41,11 @@
     };
     this.draggable = function draggableF(draggable) {
       config.draggable = draggable;
+      return this;
+    };
+    this.sparePieces = function sparePiecesF(sparePieces) {
+      config.draggable = sparePieces ? true : config.draggable;
+      config.sparePieces = sparePieces;
       return this;
     };
   
