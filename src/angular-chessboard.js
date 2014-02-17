@@ -50,7 +50,7 @@
     configProvider.draggable(true).position('start');
   }])
   
-  .directive('chessboard', [
+  .directive('nywtonChessboard', [
     '$window',
     '$log',
     '$timeout',
@@ -103,7 +103,7 @@
         },
         priority: 1000,
         template: '<div></div>',
-        controller: ['$scope', function chessboard($scope) {
+        controller: ['$scope', function NywtonChessboardCtrl($scope) {
           var $ctrl = this;
           var _cfg = [];
           
@@ -168,12 +168,12 @@
     }
   ])
   
-  .directive('positionRuyLopez', ['$log', function($log) {
+  .directive('nywtonPositionRuyLopez', ['$log', function($log) {
 
     var directive = {
       restrict: 'A',
       priority: 1,
-      require: 'chessboard',
+      require: 'nywtonChessboard',
       link: function link($scope, $element, $attrs, $ctrl) {
         $log.debug('pushing config "position" with Ruy Lopez fen-string');
         $ctrl.config_push(['position', 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R']);
@@ -183,12 +183,11 @@
     return directive;
   }])
 
-  .directive('positionStart', ['$log', function($log) {
-
+  .directive('nywtonPositionStart', ['$log', function($log) {
     var directive = {
       restrict: 'A',
       priority: 1,
-      require: 'chessboard',
+      require: 'nywtonChessboard',
       link: function link($scope, $element, $attrs, $ctrl) {
         $log.debug('pushing config "position" with start position');
         $ctrl.config_push(['position', 'start']);

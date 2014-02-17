@@ -16,7 +16,7 @@ describe('chessboardjs', function () {
   }));
   
   it('should initialize the boar correctly', function() {
-    var element = $compile('<chessboard board="board"></div>')($scope);
+    var element = $compile('<nywton-chessboard board="board"></nywton-chessboard>')($scope);
     
     $scope.$digest();
 
@@ -24,7 +24,7 @@ describe('chessboardjs', function () {
   });
   
   it('should set the position to "Ruy Lopez"', function() {
-    var element = $compile('<chessboard board="board" position-ruy-lopez></div>')($scope);
+    var element = $compile('<nywton-chessboard board="board" nywton-position-ruy-lopez></nywton-chessboard>')($scope);
     
     $scope.$digest();
     
