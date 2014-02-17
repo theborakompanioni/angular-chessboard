@@ -3,7 +3,7 @@
   
   angular.module('nywton.chessboard', [])
   
-  .value('nywtonChessDefaultConfig', {
+  .value('nywtonChessboardDefaultConfig', {
     position: undefined,
     showNotation: true,
     orientation: 'white',
@@ -25,7 +25,7 @@
     onMouseoverSquare: angular.noop,
   })
   
-  .provider('nywtonChessConfig', [function NywtonChessConfigProvider() {
+  .provider('nywtonChessboardConfig', [function NywtonChessboardConfigProvider() {
     var config = {};
     
     this.pieceTheme = function pieceThemeF(pieceTheme) {
@@ -41,21 +41,20 @@
       return this;
     };
   
-    this.$get = ['nywtonChessDefaultConfig', function unicornLauncherFactory(defaultConfig) {
+    this.$get = ['nywtonChessboardDefaultConfig', function getF(defaultConfig) {
       return angular.extend(defaultConfig, config);
     }];
   }])
   
-  .config(['nywtonChessConfigProvider', function nywtonChessConfigConfig(nywtonChessConfigProvider) {
-    nywtonChessConfigProvider.draggable(true).position('start');
+  .config(['nywtonChessboardConfigProvider', function nywtonChessboardConfigProviderConfig(configProvider) {
+    configProvider.draggable(true).position('start');
   }])
-  
   
   .directive('chessboard', [
     '$window',
     '$log',
     '$timeout',
-    'nywtonChessConfig',
+    'nywtonChessboardConfig',
     function($window, $log, $timeout, nywtonChessConfig) {
       var _configAttrs = [
         'draggable',
@@ -99,13 +98,8 @@
           onMouseoutSquare: '&',
           onMouseoverSquare: '&',
           onSnapEnd: '&',
-          // workaround for onDragStart
-          // angular does not like the 'start' at the end..
-          // $scope['onDragStart']() === undefined;
-          // i really dont know why.. onclick may not be taken..
-          // ok.. i get that.. but i could not find any documentation
-          // on this behaviour...
-          onDragStart:'&onDragStartCb', // workaround because angular does not like 'onDragStart'
+          // workaround because angular does not like 'onDragStart'
+          onDragStart:'&onDragStartCb',
         },
         priority: 1000,
         template: '<div></div>',
@@ -136,8 +130,7 @@
           };
           
           var defaultCallback = function defaultCallbackF() {
-            // calling $digest() because the methods
-            // are invoked from external lib
+            // calling $digest() because callbacks are invoked from external lib
             $scope.$parent.$digest();
           };
     
@@ -153,7 +146,6 @@
               }
             }
           });
-          
         }],
         link: function link($scope, $element, $attrs, $ctrl) {
           angular.forEach(_configAttrs, function(attr) {
