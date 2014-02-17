@@ -15,20 +15,11 @@ describe('chessboardjs', function () {
     $scope = _$rootScope_.$new();
   }));
   
-  it('should add 1 and 1 correctly', function() {
-    expect(1+1).toBe(2);
-  });
-  
-  it('should detect null correctly', function() {
-    expect(null).toBeNull();
-  });
-  
   it('should initialize the boar correctly', function() {
     var element = $compile('<chessboard board="board"></div>')($scope);
     
     $scope.$digest();
 
-    expect($scope.board).toBeDefined();
     expect($scope.board).toBeDefined();
   });
   
