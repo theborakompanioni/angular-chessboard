@@ -169,6 +169,10 @@
           
           $scope.board = new $window.ChessBoard(board_element, board_config);
           $scope.board.name = $scope.name || 'board' + $scope.$id;
+          
+          $scope.$on('$destroy', function onDestroyF() {
+            $scope.board.destroy();
+          });
         },
       };
       
