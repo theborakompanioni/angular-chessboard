@@ -1,6 +1,6 @@
 {
   "name": "angular-chessboard",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -35,8 +35,5 @@
   },
   "engines": {
     "node": ">=0.8.0"
-  },
-  "scripts": {
-    "test": "grunt test"
   }
 }

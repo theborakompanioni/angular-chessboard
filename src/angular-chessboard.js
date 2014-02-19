@@ -195,7 +195,7 @@
     }
   ])
   
-  .directive('nywtonPositionRuyLopez', ['$log', function($log) {
+  .directive('nywtonPositionRuyLopez', [function() {
 
     var directive = {
       restrict: 'A',
@@ -209,7 +209,7 @@
     return directive;
   }])
 
-  .directive('nywtonPositionStart', ['$log', function($log) {
+  .directive('nywtonPositionStart', [function() {
     var directive = {
       restrict: 'A',
       priority: 1,
