@@ -148,8 +148,10 @@
           var invokeDigestOnCallbacks = true;
           var applyWrapper = function applyWrapperF(func) {
             return function wrappedApplyInvokation() {
-              var args = Array.prototype.slice.call(arguments, 1);
-              return $scope.$parent.$apply(func.apply(this, args));
+              var args = arguments;
+              return $scope.$parent.$apply(function wrappedApplyInner() {
+                return func.apply(this, args);
+              });
             };
           };
     
