@@ -141,16 +141,31 @@
             // calling $digest() because callbacks are invoked from external lib
             $scope.$parent.$digest();
           };
+          
+          // TODO: make this configurable
+          // calling $digest on e.g. 'onMouseoverSquare'
+          // may is overkill in some applications
+          var invokeDigestOnCallbacks = true;
+          var applyWrapper = function applyWrapperF(func) {
+            return function wrappedApplyInvokation() {
+              var args = Array.prototype.slice.call(arguments, 1);
+              return $scope.$parent.$apply(func.apply(this, args));
+            };
+          };
     
+          // callback attributes e.g. on-mouse-square="myCallback"
           angular.forEach(_callbackAttrs, function(attr) {
             if(angular.isFunction($scope[attr])) {
               var expressionHandler = $scope[attr]();
-              if(!angular.isFunction(expressionHandler)) {
-                // push default callback if attr was not specified
+              // check if callback is a function (or given at all)
+              if(angular.isFunction(expressionHandler)) {
+                // wrap in an $apply() call if needed
+                var callback = invokeDigestOnCallbacks ? applyWrapper(expressionHandler) : expressionHandler;
+                $ctrl.config_push([attr, callback]);
+              }
+              // otherwise push the default callback calling $digest
+              else {
                 $ctrl.config_push([attr, defaultCallback]);
-              } else {
-                $log.debug('callback attr: ' + attr + ' = ' + expressionHandler);
-                $ctrl.config_push([attr, expressionHandler]);
               }
             }
           });
