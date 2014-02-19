@@ -233,13 +233,13 @@
         var resizeBoard = function resizeBoardF() {
           if(angular.isDefined($ctrl.board())) {
             $ctrl.board().resize();
+            console.log('board resized');
           }
         };
         var resizeTimeoutPromise;
-        // TODO: find better solution than using jquery for resize events o_0
-        $window.$($window).resize(function onWindowSizeChangeResizeBoardF() {
+        angular.element($window).bind('resize', function() {
           $timeout.cancel(resizeTimeoutPromise);
-          resizeTimeoutPromise = $timeout(resizeBoard, 200);
+          resizeTimeoutPromise = $timeout(resizeBoard, 113);
         });
         $scope.$on('$destroy', function onDestroyF() {
           $timeout.cancel(resizeTimeoutPromise);
