@@ -44,7 +44,6 @@
       return this;
     };
     this.sparePieces = function sparePiecesF(sparePieces) {
-      config.draggable = sparePieces ? true : config.draggable;
       config.sparePieces = sparePieces;
       return this;
     };
@@ -55,7 +54,7 @@
   }])
   
   .config(['nywtonChessboardConfigProvider', function nywtonChessboardConfigProviderConfig(configProvider) {
-    configProvider.draggable(true).position('start');
+    configProvider.position('empty');
   }])
   
   .directive('nywtonChessboard', [
@@ -202,7 +201,6 @@
       priority: 1,
       require: 'nywtonChessboard',
       link: function link($scope, $element, $attrs, $ctrl) {
-        $log.debug('pushing config "position" with Ruy Lopez fen-string');
         $ctrl.config_push(['position', 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R']);
       },
     };
@@ -216,7 +214,6 @@
       priority: 1,
       require: 'nywtonChessboard',
       link: function link($scope, $element, $attrs, $ctrl) {
-        $log.debug('pushing config "position" with start position');
         $ctrl.config_push(['position', 'start']);
       },
     };
@@ -233,7 +230,6 @@
         var resizeBoard = function resizeBoardF() {
           if(angular.isDefined($ctrl.board())) {
             $ctrl.board().resize();
-            console.log('board resized');
           }
         };
         var resizeTimeoutPromise;
