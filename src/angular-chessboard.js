@@ -28,6 +28,7 @@
     onMouseoverSquare: angular.noop,
   })
   
+  // TODO: all attributes should be configurable
   .provider('nywtonChessboardConfig', [function NywtonChessboardConfigProvider() {
     var config = {};
     
@@ -178,7 +179,7 @@
           });
           
           var board_config = $ctrl.config();
-          var board_element = angular.element('<div></div>')[0];
+          var board_element = angular.element('<div></div>');
           $element.prepend(board_element);
           
           $scope.board = new $window.ChessBoard(board_element, board_config);
