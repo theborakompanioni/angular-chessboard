@@ -137,19 +137,22 @@
             return $scope.board;
           };
           
-          var defaultCallback = function defaultCallbackF() {
-            // calling $digest() because callbacks are invoked from external lib
-            $scope.$parent.$digest();
+          var safeDigest = function safeDigestF() {
+            return ($scope.$$phase || $scope.$root.$$phase) ? 0 : $scope.$parent.$digest();
+          };
+          
+          var safeApply = function safeApplyF(scope, fn) {
+            return (scope.$$phase || scope.$root.$$phase) ? fn() : scope.$apply(fn);
           };
           
           // TODO: make this configurable
-          // calling $digest on e.g. 'onMouseoverSquare'
-          // may is overkill in some applications
+          // calling $digest may on e.g. 'onMouseoverSquare'
+          // be overkill in some contexts
           var invokeDigestOnCallbacks = true;
           var applyWrapper = function applyWrapperF(func) {
             return function wrappedApplyInvokation() {
               var args = arguments;
-              return $scope.$parent.$apply(function wrappedApplyInner() {
+              return safeApply($scope.$parent, function wrappedApplyInner() {
                 return func.apply(this, args);
               });
             };
@@ -167,7 +170,7 @@
               }
               // otherwise push the default callback calling $digest
               else {
-                $ctrl.config_push([attr, defaultCallback]);
+                $ctrl.config_push([attr, safeDigest]);
               }
             }
           });
