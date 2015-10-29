@@ -1,6 +1,6 @@
 {
   "name": "angular-chessboard",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "Chess Board Directive for AngularJS",
   "main": ["dist/angular-chessboard.min.js"],
