@@ -3,10 +3,12 @@
   "version": "0.0.4",
   "license": "MIT",
   "description": "Chess Board Directive for AngularJS",
-  "main": ["dist/angular-chessboard.js"],
+  "main": ["dist/angular-chessboard.min.js"],
   "keywords": [
     "chess",
-    "board"
+    "board",
+    "chessboard",
+    "angular"
   ],
   "authors": [
     "theborakompanioni"
