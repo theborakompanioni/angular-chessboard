@@ -1,5 +1,6 @@
 {
   "name": "angular-chessboard",
+  "description": "Chess Board Directive for AngularJS",
   "version": "0.0.4",
   "dependencies": {},
   "devDependencies": {
