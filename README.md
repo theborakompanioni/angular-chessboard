@@ -18,10 +18,9 @@ bower install theborakompanioni/angular-chessboard --save
 
 Add the following tags to your project
 ```html
-<link rel="stylesheet"
-    href="../bower_components/chessboard.js/css/chessboard.css"/>
-<script src="/path/to/components/chessboard.js/js/chessboard.js"></script>
-<script src="/path/to/components/angular-chessboard/dist/angular-chessboard.min.js"></script>
+<link rel="stylesheet" href="/chessboard.js/css/chessboard.css"/>
+<script src="/chessboard.js/js/chessboard.js"></script>
+<script src="/angular-chessboard/dist/angular-chessboard.min.js"></script>
 ```
 Usage
 ------------
@@ -32,8 +31,9 @@ for all values an their purpose.
 
 ```javascript
 angular.config(['nywtonChessboardConfigProvider', function nywtonChessConfigConfig(chessboardProvider) {
-  chessboardProvider.pieceTheme('../bower_components/chessboard.js/img/chesspieces/wikipedia/{piece}.png');
-  chessboardProvider.draggable(true).position('start');
+  chessboardProvider.draggable(true)
+    .position('start');
+    .pieceTheme('/chessboard.js/img/chesspieces/wikipedia/{piece}.png');
 }])
 ```
 
@@ -55,7 +55,9 @@ Create a board with non-draggable pieces in starting position:
 
 An auto resizeable board:
 ```html
-<nywton-chessboard board="boardC" data-nywton-chessboard-autoresize></nywton-chessboard>
+<nywton-chessboard board="boardC" 
+  data-nywton-chessboard-autoresize
+></nywton-chessboard>
 ```
 
 A resizeable board initialized with "Ruy Lopez" (or Spanish Opening):
@@ -86,3 +88,10 @@ Contribute
 #### Run tests
 
 `grunt test`
+
+
+License
+-------
+
+The project is licensed under the MIT license. See
+[LICENSE](https://github.com/theborakompanioni/angular-chessboard/blob/master/LICENSE) for details.
