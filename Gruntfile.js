@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     },
     karma: {
       options: {
-        configFile: 'karma.conf.js',
+        configFile: 'karma.conf.js'
       },
       unit: {
         singleRun: true
@@ -33,10 +33,10 @@ module.exports = function (grunt) {
       }
     },
     jshint: {
-      all:[
+      all: [
         'Gruntfile.js',
         'src/**/*.js',
-        //'test/**/*.spec.js'
+        'test/**/*.spec.js'
       ],
       options: {
         jshintrc: '.jshintrc'
@@ -50,10 +50,10 @@ module.exports = function (grunt) {
           cwd: 'src',
           dest: 'dist',
           src: [
-            '*.js',
-          ],
-        },]
-      },
+            '*.js'
+          ]
+        }]
+      }
     },
     uglify: {
       dist: {
@@ -63,11 +63,11 @@ module.exports = function (grunt) {
           ]
         }
       }
-    },
+    }
   };
 
   // Register tasks
-  grunt.registerTask('default', ['jshint', 'karma:unit']);
+  grunt.registerTask('default', ['dist']);
   grunt.registerTask('watch', ['jshint', 'karma:watch']);
   grunt.registerTask('dist', ['jshint', 'karma:unit', 'copy', 'uglify']);
 
