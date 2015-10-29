@@ -1,3 +1,4 @@
+/*global ChessBoard*/
 (function (window, ChessBoard, undefined) {
   'use strict';
 
