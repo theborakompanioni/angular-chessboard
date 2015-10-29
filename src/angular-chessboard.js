@@ -1,9 +1,7 @@
-(function () {
+(function (window, ChessBoard, undefined) {
   'use strict';
-  
-  angular.module('nywton.chessboard', [])
-  
-  .value('nywtonChessboardDefaultConfig', {
+
+  var chessboardDefaultConfig = {
     position: undefined,
     showNotation: true,
     orientation: 'white',
@@ -26,38 +24,34 @@
     onMoveEnd: angular.noop,
     onMouseoutSquare: angular.noop,
     onMouseoverSquare: angular.noop,
-  })
-  
+  };
+
+  angular.module('nywton.chessboard', [])
+
+  .value('nywtonChessboardDefaultConfig', angular.copy(chessboardDefaultConfig))
+
   // TODO: all attributes should be configurable
   .provider('nywtonChessboardConfig', [function NywtonChessboardConfigProvider() {
     var config = {};
-    
-    this.pieceTheme = function pieceThemeF(pieceTheme) {
-      config.pieceTheme = pieceTheme;
-      return this;
-    };
-    this.position = function positionF(position) {
-      config.position = position;
-      return this;
-    };
-    this.draggable = function draggableF(draggable) {
-      config.draggable = draggable;
-      return this;
-    };
-    this.sparePieces = function sparePiecesF(sparePieces) {
-      config.sparePieces = sparePieces;
-      return this;
-    };
-  
+
+      // add a setter function for all properties
+    var that = this;
+    angular.forEach(chessboardDefaultConfig, function(value, key) {
+      that[key] = function(propertyValue) {
+        config[key] = propertyValue;
+        return that;
+      };
+    });
+
     this.$get = ['nywtonChessboardDefaultConfig', function getF(defaultConfig) {
       return angular.extend(defaultConfig, config);
     }];
   }])
-  
+
   .config(['nywtonChessboardConfigProvider', function nywtonChessboardConfigProviderConfig(configProvider) {
-    configProvider.position('empty');
+    configProvider.position('empty').orientation('white');
   }])
-  
+
   .directive('nywtonChessboard', [
     '$window',
     '$log',
@@ -79,7 +73,7 @@
         'snapSpeed',
         'trashSpeed',
       ];
-      
+
       var _callbackAttrs = [
         'onChange',
         'onDragStart',
@@ -91,7 +85,7 @@
         'onMouseoverSquare',
         'onSnapEnd',
       ];
-      
+
       var directive = {
         restrict: 'EA',
         scope: {
@@ -114,15 +108,15 @@
         controller: ['$scope', function NywtonChessboardCtrl($scope) {
           var $ctrl = this;
           var _cfg = [];
-          
+
           $scope.name = $scope.name || 'board'+$scope.$id;
-          
+
           this.config_push = function config_pushF(incoming) {
             if(angular.isArray(incoming) && incoming.length === 2 && angular.isString(incoming[0]) && !angular.isUndefined(incoming[1])) {
               _cfg.push(incoming);
             }
           };
-          
+
           this.config = function configF() {
             var cfg = {};
             angular.forEach(_cfg, function(pair) {
@@ -132,19 +126,19 @@
             $log.debug(combined_config);
             return combined_config;
           };
-          
+
           this.board = function boardF() {
             return $scope.board;
           };
-          
+
           var safeDigest = function safeDigestF() {
             return ($scope.$$phase || $scope.$root.$$phase) ? 0 : $scope.$parent.$digest();
           };
-          
+
           var safeApply = function safeApplyF(scope, fn) {
             return (scope.$$phase || scope.$root.$$phase) ? fn() : scope.$apply(fn);
           };
-          
+
           // TODO: make this configurable
           // calling $digest may on e.g. 'onMouseoverSquare'
           // be overkill in some contexts
@@ -157,7 +151,7 @@
               });
             };
           };
-    
+
           // callback attributes e.g. on-mouse-square="myCallback"
           angular.forEach(_callbackAttrs, function(attr) {
             if(angular.isFunction($scope[attr])) {
@@ -182,24 +176,24 @@
               $ctrl.config_push([attr, $scope.$eval($attrs[attr])]);
             }
           });
-          
+
           var board_config = $ctrl.config();
           var board_element = angular.element('<div></div>');
           $element.prepend(board_element);
-          
-          $scope.board = new $window.ChessBoard(board_element, board_config);
+
+          $scope.board = new ChessBoard(board_element, board_config);
           $scope.board.name = $scope.name || 'board' + $scope.$id;
-          
+
           $scope.$on('$destroy', function onDestroyF() {
             $scope.board.destroy();
           });
         },
       };
-      
+
       return directive;
     }
   ])
-  
+
   .directive('nywtonPositionRuyLopez', [function() {
 
     var directive = {
@@ -210,7 +204,7 @@
         $ctrl.config_push(['position', 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R']);
       },
     };
-    
+
     return directive;
   }])
 
@@ -223,10 +217,10 @@
         $ctrl.config_push(['position', 'start']);
       },
     };
-    
+
     return directive;
   }])
-  
+
   .directive('nywtonChessboardAutoresize', ['$window','$timeout', function($window, $timeout) {
     var directive = {
       restrict: 'A',
@@ -248,8 +242,8 @@
         });
       },
     };
-    
+
     return directive;
   }]);
 
-})();
+})(window, ChessBoard);
