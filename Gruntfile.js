@@ -67,9 +67,10 @@ module.exports = function (grunt) {
   };
 
   // Register tasks
-  grunt.registerTask('default', ['dist']);
+  grunt.registerTask('default', ['test', 'dist']);
+  grunt.registerTask('test', ['jshint', 'karma:unit']);
+  grunt.registerTask('dist', ['copy', 'uglify']);
   grunt.registerTask('watch', ['jshint', 'karma:watch']);
-  grunt.registerTask('dist', ['jshint', 'karma:unit', 'copy', 'uglify']);
 
   grunt.initConfig(initConfig);
 };
