@@ -90,7 +90,7 @@
           restrict: 'EA',
           scope: {
             name: '@',
-            board: '=',
+            board: '=?',
             // callbacks
             onChange: '&',
             onDragMove: '&',

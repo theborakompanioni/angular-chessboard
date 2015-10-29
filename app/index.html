@@ -1,89 +1,92 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title></title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400'
-	rel='stylesheet' type='text/css'>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400'
+        rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet"
-	href="../bower_components/chessboard.js/css/chessboard.css" />
-<link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet"
+        href="../bower_components/chessboard.js/css/chessboard.css"/>
+  <link rel="stylesheet" href="styles/main.css">
 </head>
 <body data-ng-app="nywton.chessboard.app" data-ng-controlloer="BodyCtrl">
-	<div class="container">
+<div class="container">
 
-		<div class="cf">
-			<button data-ng-click="_showBoard = !_showBoard">show/hide</button>
+  <div class="cf">
+    <button data-ng-click="_showBoard = !_showBoard">show/hide</button>
 
-			<div class="cf">
-				<div class="example board board-fluid-xs" data-ng-if="_showBoard">
-					<nywton-chessboard board="board" data-nywton-chessboard-autoresize
-						data-nywton-position-ruy-lopez></nywton-chessboard>
-					<div data-chessboard-debug="board"></div>
-				</div>
-			</div>
-		</div>
-
-		<div class="cf">
-      <div class="example board board-sm">
-        <nywton-chessboard></nywton-chessboard>
+    <div class="cf">
+      <div class="example board board-fluid-xs" data-ng-if="_showBoard">
+        <nywton-chessboard board="board" data-nywton-chessboard-autoresize
+                           data-nywton-position-ruy-lopez></nywton-chessboard>
+        <div data-chessboard-debug="board"></div>
       </div>
-			<div class="example board board-sm">
-				<nywton-chessboard board="boardA" data-position="'empty'"></nywton-chessboard>
-			</div>
-			<div class="example board board-sm">
-				<nywton-chessboard board="boardB" data-draggable="false"></nywton-chessboard>
-			</div>
-		</div>
-		<div class="cf">
-			<div class="example board board-xs">
-				<nywton-chessboard board="boardC" data-position="'empty'"></nywton-chessboard>
-			</div>
-			<div class="example board board-fluid-xs">
-				<nywton-chessboard board="boardD" data-nywton-chessboard-autoresize></nywton-chessboard>
-			</div>
+    </div>
+  </div>
 
-			<div class="example board board-fluid-xs">
-				<nywton-chessboard board="boardE" data-nywton-chessboard-autoresize
-					data-nywton-position-ruy-lopez></nywton-chessboard>
-			</div>
-		</div>
+  <div class="cf">
+    <div class="example board board-sm">
+      <nywton-chessboard></nywton-chessboard>
+    </div>
+    <div class="example board board-sm">
+      <nywton-chessboard board="boardA" data-position="'empty'"></nywton-chessboard>
+    </div>
+    <div class="example board board-sm">
+      <nywton-chessboard board="boardB" data-draggable="false"></nywton-chessboard>
+    </div>
+  </div>
+  <div class="cf">
+    <div class="example board board-xs">
+      <nywton-chessboard board="boardC" data-position="'empty'"></nywton-chessboard>
+    </div>
+    <div class="example board board-fluid-xs">
+      <nywton-chessboard board="boardD" data-nywton-chessboard-autoresize></nywton-chessboard>
+    </div>
 
-		<div class="cf">
-			<div class="example board board-xs">
-				<nywton-chessboard board="boardF" spare-pieces="true"
-					position="'start'"></nywton-chessboard>
-			</div>
+    <div class="example board board-fluid-xs">
+      <nywton-chessboard board="boardE" data-nywton-chessboard-autoresize
+                         data-nywton-position-ruy-lopez></nywton-chessboard>
+    </div>
+  </div>
 
-			<div class="">
-				<button type="button" class="" data-ng-click="boardF.start();">Start</button>
-				<button type="button" class="" data-ng-click="boardF.clear();">Clear</button>
-			</div>
+  <div class="cf">
+    <div class="example board board-xs">
+      <nywton-chessboard board="boardF" spare-pieces="true"
+                         position="'start'"></nywton-chessboard>
+    </div>
 
-		</div>
+    <div class="">
+      <button type="button" class="" data-ng-click="boardF.start();">Start</button>
+      <button type="button" class="" data-ng-click="boardF.clear();">Clear</button>
+    </div>
 
-		<div class="footer">
-			<p>
-				<small>angular-chessboard</small>
-			</p>
-		</div>
-	</div>
+  </div>
 
-	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="../bower_components/angular/angular.js"></script>
-	<script src="../bower_components/chessboard.js/js/chessboard.js"></script>
-	<script src="../src/angular-chessboard.js"></script>
+  <div class="footer">
+    <p>
+      <small>angular-chessboard</small>
+    </p>
+  </div>
+</div>
 
-	<script src="scripts/app.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/chessboard.js/js/chessboard.js"></script>
+<script src="../dist/angular-chessboard.min.js"></script>
+
+<script src="scripts/app.js"></script>
 
 </body>
 </html>
