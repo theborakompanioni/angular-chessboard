@@ -1,3 +1,8 @@
+[![Build Status](https://api.travis-ci.org/theborakompanioni/angular-chessboard.png?branch=master)](https://travis-ci.org/theborakompanioni/angular-chessboard)
+[![Dependency Status](https://david-dm.org/theborakompanioni/angular-chessboard.svg)](https://david-dm.org/theborakompanioni/angular-chessboard)
+[![devDependency Status](https://david-dm.org/theborakompanioni/angular-chessboard/dev-status.svg)](https://david-dm.org/theborakompanioni/angular-chessboard#info=devDependencies)
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 angular-chessboard
 ==================
 
