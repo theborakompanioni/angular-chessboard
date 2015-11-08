@@ -35,9 +35,12 @@ You can configure the default behaviour of all settings. See [chessboard.js Docu
 for all values an their purpose.
 
 ```javascript
+angular.module('myModule', ['nywton.chessboard']);
+```
+```javascript
 angular.config(['nywtonChessboardConfigProvider', function nywtonChessConfigConfig(chessboardProvider) {
   chessboardProvider.draggable(true)
-    .position('start');
+    .position('start')
     .pieceTheme('/chessboard.js/img/chesspieces/wikipedia/{piece}.png');
 }])
 ```
