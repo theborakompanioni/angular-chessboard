@@ -31,7 +31,7 @@
 
     .value('nywtonChessboardDefaultConfig', angular.copy(chessboardDefaultConfig))
 
-    .provider('nywtonChessboardConfig', [function NywtonChessboardConfigProvider() {
+    .provider('nywtonChessboardConfig', [function () {
       var config = {};
 
       // add a setter function for all properties
@@ -43,21 +43,33 @@
         };
       });
 
-      this.$get = ['nywtonChessboardDefaultConfig', function getF(defaultConfig) {
+      this.$get = ['nywtonChessboardDefaultConfig', function (defaultConfig) {
         return angular.extend(defaultConfig, config);
       }];
     }])
 
-    .config(['nywtonChessboardConfigProvider', function nywtonChessboardConfigProviderConfig(configProvider) {
+    .config(['nywtonChessboardConfigProvider', function (configProvider) {
       configProvider.position('empty').orientation('white');
+    }])
+
+    .factory('nytwonChessboardObjectFactory', ['nywtonChessboardConfig', function (nywtonChessboardConfig) {
+      if (!window.ChessBoard) {
+        throw new Error('Unable to find a valid version of chessboard.js.');
+      }
+
+      return {
+        createInstance: function (element, config) {
+          var combined_config = angular.extend(angular.copy(nywtonChessboardConfig), config || {});
+          return new window.ChessBoard(element, combined_config);
+        }
+      };
     }])
 
     .directive('nywtonChessboard', [
       '$window',
       '$log',
-      '$timeout',
-      'nywtonChessboardConfig',
-      function ($window, $log, $timeout, nywtonChessConfig) {
+      'nytwonChessboardObjectFactory',
+      function ($window, $log, chessboardObjectFactory) {
         var _configAttrs = [
           'draggable',
           'dropOffBoard',
@@ -105,7 +117,7 @@
           },
           priority: 1000,
           template: '<div></div>',
-          controller: ['$scope', function NywtonChessboardCtrl($scope) {
+          controller: ['$scope', function ($scope) {
             var $ctrl = this;
             var _cfg = [];
 
@@ -122,9 +134,7 @@
               angular.forEach(_cfg, function (pair) {
                 cfg[pair[0]] = pair[1];
               });
-              var combined_config = angular.extend(angular.copy(nywtonChessConfig), cfg);
-              $log.debug(combined_config);
-              return combined_config;
+              return cfg;
             };
 
             this.board = function boardF() {
@@ -181,7 +191,7 @@
             var board_element = angular.element('<div></div>');
             $element.prepend(board_element);
 
-            $scope.board = new ChessBoard(board_element, board_config);
+            $scope.board = chessboardObjectFactory.createInstance(board_element, board_config);
             $scope.board.name = $scope.name || 'board' + $scope.$id;
 
             $scope.$on('$destroy', function onDestroyF() {
