@@ -3,7 +3,7 @@
 angular.module('nywton.chessboard.app', ['nywton.chessboard'])
 
 .config(['nywtonChessboardConfigProvider', function nywtonChessConfigConfig(chessboardProvider) {
-  chessboardProvider.pieceTheme('../bower_components/chessboard.js/img/chesspieces/wikipedia/{piece}.png');
+  chessboardProvider.pieceTheme('../bower_components/chessboard.js/dist/img/chesspieces/wikipedia/{piece}.png');
   chessboardProvider.draggable(true).position('start');
 }])
 
@@ -28,6 +28,6 @@ angular.module('nywton.chessboard.app', ['nywton.chessboard'])
      '</div>' +
    '</div>',
   };
-  
+
   return directive;
 }]);
