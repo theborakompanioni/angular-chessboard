@@ -1,7 +1,7 @@
 {
   "name": "angular-chessboard",
   "description": "Chess Board Directive for AngularJS",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "test": "grunt default --verbose",
     "citest": "karma start karma-saucelabs.conf.js"
