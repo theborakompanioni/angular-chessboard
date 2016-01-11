@@ -8,6 +8,11 @@ angular-chessboard
 
 Chess Board Directive for AngularJS based on [chessboard.js](http://chessboardjs.com/)
 
+Examples
+------------
+- Multichess (Demo Application) - <http://multichess.github.io>
+- Examples - <http://theborakompanioni.github.io/angular-chess/#/examples>
+
 Download
 ------------
 
